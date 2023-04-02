@@ -1,0 +1,515 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+      "/api/register": {
+        "post": {
+          "operationId": "RolesController_createRole",
+          "summary": "",
+          "description": "Create new user",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateUserRequestDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/ResponseDto"
+                      },
+                      {
+                        "properties": {
+                          "payload": {
+                            "$ref": "#/components/schemas/RoleResponseDto"
+                          },
+                          "timestamp": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Not authenticated"
+            },
+            "403": {
+              "description": "Access denied"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "409": {
+              "description": "Role already exists"
+            },
+            "500": {
+              "description": "Server error"
+            }
+          },
+          "tags": [
+            "Token"
+          ],
+          "security": [
+            {
+              "access-token": []
+            }
+          ]
+        }
+      },
+       "/api/login": {
+        "post": {
+          "operationId": "RolesController_createRole",
+          "summary": "",
+          "description": "Login user",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginUserDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/ResponseDto"
+                      },
+                      {
+                        "properties": {
+                          "payload": {
+                            "$ref": "#/components/schemas/RoleResponseDto"
+                          },
+                          "timestamp": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Not authenticated"
+            },
+            "403": {
+              "description": "Access denied"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "409": {
+              "description": "Role already exists"
+            },
+            "500": {
+              "description": "Server error"
+            }
+          },
+          "tags": [
+            "Token"
+          ],
+          "security": [
+            {
+              "access-token": []
+            }
+          ]
+        }
+       
+      }
+    },
+    "info": {
+      "title": "Tic-tac-toe"
+    },
+    "tags": [],
+     "servers": [
+          {
+              "url": "http://localhost:8000/"
+          }
+      ],
+  
+    "components": {
+      "securitySchemes": {
+        "access-token": {
+          "scheme": "bearer",
+          "bearerFormat": "Bearer",
+          "type": "http"
+        }
+      },
+      "schemas": {
+        "PaginationResponseDto": {
+          "type": "object",
+          "properties": {
+            "currentPage": {
+              "type": "number",
+              "example": 1
+            },
+            "skippedRecords": {
+              "type": "number",
+              "example": 0
+            },
+            "totalPages": {
+              "type": "number",
+              "example": 1
+            },
+            "hasNext": {
+              "type": "boolean",
+              "example": false
+            },
+            "content": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "payloadSize": {
+              "type": "number",
+              "example": 1
+            },
+            "totalRecords": {
+              "type": "number",
+              "example": 1
+            }
+          },
+          "required": [
+            "currentPage",
+            "skippedRecords",
+            "totalPages",
+            "hasNext",
+            "content",
+            "payloadSize",
+            "totalRecords"
+          ]
+        },
+        "PermissionResponseDto": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "slug": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "active": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "slug",
+            "description",
+            "active"
+          ]
+        },
+        "RoleResponseDto": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "permissions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/PermissionResponseDto"
+              }
+            },
+            "active": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "permissions",
+            "active"
+          ]
+        },
+        "ResponseDto": {
+          "type": "object",
+          "properties": {
+            "payload": {
+              "type": "object"
+            },
+            "timestamp": {
+              "type": "number",
+              "example": 1617826799860
+            }
+          },
+          "required": [
+            "payload",
+            "timestamp"
+          ]
+        },
+        "CreateUserRequestDto": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "email"
+          ]
+        },
+        "LoginUserDto": {
+          "type": "object",
+          "properties": {
+           
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "email",
+            "password"
+          ]
+        },
+        "UpdateRoleRequestDto": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "permissions": {
+              "example": [
+                1,
+                2
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "active": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "name",
+            "permissions",
+            "active"
+          ]
+        },
+        "CreatePermissionRequestDto": {
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "slug",
+            "description"
+          ]
+        },
+        "UpdatePermissionRequestDto": {
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "active": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "slug",
+            "description",
+            "active"
+          ]
+        },
+        "UserResponseDto": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "username": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/RoleResponseDto"
+              }
+            },
+            "permissions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/PermissionResponseDto"
+              }
+            },
+            "isSuperUser": {
+              "type": "boolean"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "username",
+            "firstName",
+            "lastName",
+            "roles",
+            "permissions",
+            "isSuperUser",
+            "status"
+          ]
+        },
+       
+        "UpdateUserRequestDto": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string",
+              "example": "jdoe"
+            },
+            "firstName": {
+              "type": "string",
+              "example": "John"
+            },
+            "lastName": {
+              "type": "string",
+              "example": "Doe"
+            },
+            "permissions": {
+              "example": [
+                1,
+                2
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "roles": {
+              "example": [
+                1,
+                2
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "string",
+              "example": "active"
+            }
+          },
+          "required": [
+            "username",
+            "firstName",
+            "lastName",
+            "permissions",
+            "roles",
+            "status"
+          ]
+        },
+        "ChangePasswordRequestDto": {
+          "type": "object",
+          "properties": {
+            "currentPassword": {
+              "type": "string",
+              "example": "Hello123"
+            },
+            "newPassword": {
+              "type": "string",
+              "example": "Hello123"
+            }
+          },
+          "required": [
+            "currentPassword",
+            "newPassword"
+          ]
+        },
+        "AuthCredentialsRequestDto": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string",
+              "example": "jDoe"
+            },
+            "password": {
+              "type": "string",
+              "example": "Hello123"
+            }
+          },
+          "required": [
+            "username",
+            "password"
+          ]
+        },
+        "RefreshTokenRequestDto": {
+          "type": "object",
+          "properties": {
+            "refreshToken": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "refreshToken"
+          ]
+        },
+        "ValidateTokenRequestDto": {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "token"
+          ]
+        }
+      }
+    }
+  }
